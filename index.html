@@ -21,8 +21,34 @@
       <a-sky id="sky-now" src="#now" rotation="0 -90 0" visible="true"></a-sky>
 
     </a-scene>
-	
+	    <script>
+      const skyNow = document.getElementById("sky-now");
+      const skyThen = document.getElementById("sky-then");
+      const btn = document.getElementById("switchBtn");
+      let showingNow = true;
+
+      btn.addEventListener("click", () => {
+        showingNow = !showingNow;
+        skyNow.setAttribute("visible", showingNow);
+        skyThen.setAttribute("visible", !showingNow);
+        btn.textContent = showingNow
+          ? "Pokaż wersję historyczną"
+          : "Pokaż wersję współczesną";
+      });
+	  
+	  AFRAME.registerComponent('show-info-on-click', {
+  init: function () {
+    this.el.addEventListener('click', function () {
+      const infoBox = document.querySelector('#infoBox');
+      infoBox.setAttribute('visible', true);
+    });
+  }
+});
+
+document.querySelector('#infoMarker').setAttribute('show-info-on-click', '');
+    </script>
   </body>
 </html>
+
 
 
