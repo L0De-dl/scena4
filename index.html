@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Porównanie panoram</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+    </style>
+  </head>
+  <body>
+
+    <a-scene>
+      <a-assets>
+        <img id="now" src="panorama_now.jpg" />
+      </a-assets>
+
+      <a-sky id="sky-now" src="#now" rotation="0 -90 0" visible="true"></a-sky>
+
+    </a-scene>
+	
+  </body>
+</html>
+
