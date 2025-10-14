@@ -1,54 +1,146 @@
 <!DOCTYPE html>
 <html lang="pl">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
     <title>Porównanie panoram</title>
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <style>
       body {
         margin: 0;
         overflow: hidden;
+        display: flex;
+        justify-content: center; 
+        align-items: flex-start;
+        font-family: Arial, sans-serif;
+      }
+
+
+      /* 🔸 Przycisk powrotu (pod spodem, mniejszy) */
+      #backBtn {
+        position: absolute;
+        top: 180px;
+        left: 20px;
+        z-index: 10;
+        padding: 6px 12px;
+        background: white;
+        border: 5px solid black;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* 🔸 Ekran ładowania */
+      #loader {
+        position: fixed;
+        inset: 0;
+        background: black;
+        color: yellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+        font-weight: bold;
+        z-index: 9999;
+        letter-spacing: 2px;
+      }
+
+      /* 🔸 Płynne znikanie loadera */
+      #loader.fade-out {
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
     </style>
   </head>
-  <body>
 
+  <body>
+    <!-- 🔹 Ekran ładowania -->
+    <div id="loader">ŁADOWANIE PANORAMY...</div>
+
+	  
+    <!-- 🔹 Przycisk powrotu (niżej) -->
+    <button id="backBtn" onclick="window.location.href='https://l0de-dl.github.io/geoportal-historyczny'">
+      POWRÓT
+    </button>
+
+    <!-- 🔹 Scena A-Frame -->
     <a-scene>
-      <a-assets>
+      <a-assets timeout="5000">
         <img id="now" src="panorama_now.jpg" />
-		  <a-camera wasd-controls-enabled="false" look-controls="pointerLockEnabled: true"></a-camera>
       </a-assets>
 
       <a-sky id="sky-now" src="#now" rotation="0 -90 0" visible="true"></a-sky>
 
+<a-camera><a-cursor></a-cursor></a-camera>
+        
     </a-scene>
-	    <script>
-      const skyNow = document.getElementById("sky-now");
-      const skyThen = document.getElementById("sky-then");
-      const btn = document.getElementById("switchBtn");
-      let showingNow = true;
 
-      btn.addEventListener("click", () => {
-        showingNow = !showingNow;
-        skyNow.setAttribute("visible", showingNow);
-        skyThen.setAttribute("visible", !showingNow);
-        btn.textContent = showingNow
-          ? "Pokaż wersję historyczną"
-          : "Pokaż wersję współczesną";
+    <script>
+      // 🔸 Ukrycie ekranu ładowania po wczytaniu sceny
+      const scene = document.querySelector("a-scene");
+      const loader = document.getElementById("loader");
+
+      scene.addEventListener("loaded", () => {
+        loader.classList.add("fade-out");
+        setTimeout(() => loader.remove(), 1000);
       });
-	  
-	  AFRAME.registerComponent('show-info-on-click', {
-  init: function () {
-    this.el.addEventListener('click', function () {
-      const infoBox = document.querySelector('#infoBox');
-      infoBox.setAttribute('visible', true);
-    });
-  }
-});
 
-document.querySelector('#infoMarker').setAttribute('show-info-on-click', '');
     </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
